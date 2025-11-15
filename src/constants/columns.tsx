@@ -147,7 +147,7 @@ export const createColumns = (): ColumnDef<SpotifyTrack>[] => [
         <div className="flex items-center gap-2">
           <div className="flex-1 bg-gray-200 rounded-full h-2 max-w-[100px]">
             <div
-              className="bg-primary-600 h-2 rounded-full transition-all"
+              className={` h-2 rounded-full transition-all bg-green-500`}
               style={{ width: `${popularity}%` }}
             />
           </div>

@@ -3,7 +3,6 @@ import type { Table } from '@tanstack/react-table';
 import type { SpotifyTrack } from '@/types/spotify.types';
 import { Filter, X } from 'lucide-react';
 import { Button } from './ui/button';
-import { Input } from './ui/input';
 import { SelectFilters } from '@/constants/ui/SelectFilter';
 import { InputFilter } from '@/constants/ui/InputFilter';
 
@@ -63,7 +62,6 @@ export const TableFilters = ({ table, data }: TableFiltersProps) => {
   console.log('PopularityMax', popularityMax);
   console.log(yearFilter);
 
-  // Check if any filters are active
   const hasActiveFilters =
     trackNameFilter !== '' ||
     genreFilter !== '' ||
@@ -125,7 +123,6 @@ export const TableFilters = ({ table, data }: TableFiltersProps) => {
               />
             </div>
 
-            {/* Genre Filter */}
             <div>
               <SelectFilters
                 label="Genre"
@@ -175,7 +172,7 @@ export const TableFilters = ({ table, data }: TableFiltersProps) => {
                   className="w-20 px-2 py-1 border border-gray-300 rounded text-sm"
                   placeholder="Min"
                 />
-                <span className="text-gray-500">to</span>
+                <span className="text-gray-500 text-sm">to</span>
                 <input
                   type="number"
                   min="0"

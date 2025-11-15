@@ -1,6 +1,7 @@
 import React from 'react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { nanoid } from 'nanoid';
 
 interface CustomInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -16,14 +17,14 @@ export const InputFilter = ({
   id,
   ...props
 }: CustomInputProps) => {
-  const inputId = id || `input-${React.useId()}`;
+  const inputId = id || `input-${nanoid()}`;
 
   return (
     <div className="w-full">
       {label && (
         <Label
           htmlFor={inputId}
-          className="block text-sm font-medium text-gray-700 mb-1"
+          className="block text-sm font-medium text-gray-700"
         >
           {label}
         </Label>
