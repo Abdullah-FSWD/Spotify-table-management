@@ -1,15 +1,22 @@
-import { useMemo } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import {
   useReactTable,
   getCoreRowModel,
   getPaginationRowModel,
   flexRender,
+  getSortedRowModel,
+  getFilteredRowModel,
 } from '@tanstack/react-table';
 import { createColumns } from '@/constants/columns';
 import type { SpotifyTrack } from '@/types/spotify.types';
+import type { SortingState } from '@tanstack/react-table';
+import { SearchBar } from './SearchBar';
+import { TableFilters } from './TableFilters';
 
 export const DataTable = ({ data }: { data: SpotifyTrack[] }) => {
   const columns = useMemo(() => createColumns(), []);
+  const [sorting, setSorting] = useState<SortingState>([]);
+  const [globalFilter, setGlobalFilter] = useState('');
 
   const table = useReactTable({
     data,
@@ -21,22 +28,56 @@ export const DataTable = ({ data }: { data: SpotifyTrack[] }) => {
         pageSize: 50,
       },
     },
+    state: {
+      sorting,
+      globalFilter,
+    },
+    onSortingChange: setSorting,
+    getSortedRowModel: getSortedRowModel(),
+    onGlobalFilterChange: setGlobalFilter,
+    getFilteredRowModel: getFilteredRowModel(),
+    globalFilterFn: (row, columnId, filterValue) => {
+      const search = filterValue.toLowerCase();
+      const value = row.getValue(columnId);
+
+      if (value == null) return false;
+
+      return String(value).toLowerCase().includes(search);
+    },
   });
+
+  const handleSearchChange = useCallback((value: string) => {
+    setGlobalFilter(value);
+  }, []);
+
+  const filteredRowCount = table.getFilteredRowModel().rows.length;
+  const hasFilters = globalFilter !== '';
 
   return (
     <div className="space-y-4">
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-        <div className="flex-1 max-w-md w-full"></div>
+        <div className="flex-1 max-w-md w-full">
+          <SearchBar onSearchChange={handleSearchChange} />
+        </div>
 
         <div className="flex items-center gap-3">
           <div className="text-sm text-gray-600">
-            Total:{' '}
+            Total:
             <span className="font-semibold text-gray-900">
               {data.length.toLocaleString()}
             </span>
+            {hasFilters && filteredRowCount !== data.length && (
+              <>
+                Filtered:{' '}
+                <span className="font-semibold text-primary-600">
+                  {filteredRowCount.toLocaleString()}
+                </span>
+              </>
+            )}
           </div>
         </div>
       </div>
+      <TableFilters table={table} data={data} />
       <div className="border border-gray-200 rounded-lg overflow-hidden bg-white shadow-sm">
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200">
