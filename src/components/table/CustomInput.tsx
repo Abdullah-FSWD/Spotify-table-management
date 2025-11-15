@@ -9,7 +9,7 @@ interface CustomInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   helperText?: string;
 }
 
-export const InputFilter = ({
+export const CustomInput = ({
   label,
   error,
   helperText,

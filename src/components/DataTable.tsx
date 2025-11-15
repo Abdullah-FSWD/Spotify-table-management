@@ -12,6 +12,7 @@ import type { SpotifyTrack } from '@/types/spotify.types';
 import type { SortingState } from '@tanstack/react-table';
 import { SearchBar } from './SearchBar';
 import { TableFilters } from './TableFilters';
+import { PaginationTable } from './PaginationTable';
 
 export const DataTable = ({ data }: { data: SpotifyTrack[] }) => {
   const columns = useMemo(() => createColumns(), []);
@@ -131,6 +132,7 @@ export const DataTable = ({ data }: { data: SpotifyTrack[] }) => {
             </tbody>
           </table>
         </div>
+        {filteredRowCount > 0 && <PaginationTable table={table} />}
       </div>
     </div>
   );

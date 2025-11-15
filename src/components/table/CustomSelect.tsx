@@ -11,7 +11,7 @@ interface SelectOption {
   label: string;
 }
 
-interface SelectFiltersProps {
+interface CustomSelectProps {
   label?: string;
   options: SelectOption[];
   placeholder?: string;
@@ -21,7 +21,7 @@ interface SelectFiltersProps {
   className?: string;
 }
 
-export const SelectFilters = ({
+export const CustomSelect = ({
   label,
   options,
   placeholder = 'Select an option',
@@ -29,7 +29,7 @@ export const SelectFilters = ({
   onValueChange,
   disabled,
   className = '',
-}: SelectFiltersProps) => {
+}: CustomSelectProps) => {
   return (
     <div className="w-full">
       {label && (

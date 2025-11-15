@@ -3,8 +3,8 @@ import type { Table } from '@tanstack/react-table';
 import type { SpotifyTrack } from '@/types/spotify.types';
 import { Filter, X } from 'lucide-react';
 import { Button } from './ui/button';
-import { SelectFilters } from '@/constants/ui/SelectFilter';
-import { InputFilter } from '@/constants/ui/InputFilter';
+import { CustomSelect } from '@/components/table/CustomSelect';
+import { CustomInput } from '@/components/table/CustomInput';
 
 type TableFiltersProps = {
   table: Table<SpotifyTrack>;
@@ -113,7 +113,7 @@ export const TableFilters = ({ table, data }: TableFiltersProps) => {
         <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <div>
-              <InputFilter
+              <CustomInput
                 label="Track Name"
                 placeholder="Filter by track name..."
                 value={trackNameFilter}
@@ -124,7 +124,7 @@ export const TableFilters = ({ table, data }: TableFiltersProps) => {
             </div>
 
             <div>
-              <SelectFilters
+              <CustomSelect
                 label="Genre"
                 placeholder="All genres"
                 value={genreFilter}
@@ -139,7 +139,7 @@ export const TableFilters = ({ table, data }: TableFiltersProps) => {
             </div>
 
             <div>
-              <SelectFilters
+              <CustomSelect
                 label="Artist (Top 100)"
                 placeholder="All artists"
                 value={artistFilter}
@@ -190,7 +190,7 @@ export const TableFilters = ({ table, data }: TableFiltersProps) => {
               </div>
             </div>
             <div>
-              <InputFilter
+              <CustomInput
                 label="Release Year"
                 type="number"
                 placeholder="e.g 2000 etc."
