@@ -13,6 +13,8 @@ import type { SortingState } from '@tanstack/react-table';
 import { SearchBar } from './SearchBar';
 import { TableFilters } from './TableFilters';
 import { PaginationTable } from './PaginationTable';
+import { useTheme } from '@/hooks/useTheme';
+import { Music } from 'lucide-react';
 import {
   Table,
   TableBody,
@@ -23,6 +25,7 @@ import {
 } from './ui/table';
 
 export const DataTable = ({ data }: { data: SpotifyTrack[] }) => {
+  const { theme } = useTheme();
   const columns = useMemo(() => createColumns(), []);
   const [sorting, setSorting] = useState<SortingState>([]);
   const [globalFilter, setGlobalFilter] = useState('');
@@ -62,40 +65,97 @@ export const DataTable = ({ data }: { data: SpotifyTrack[] }) => {
 
   const filteredRowCount = table.getFilteredRowModel().rows.length;
   const hasFilters = globalFilter !== '';
+  const pageCount = table.getPageCount();
+  const currentPage = table.getState().pagination.pageIndex + 1;
+  const pageSize = table.getState().pagination.pageSize;
+  const totalRows = table.getFilteredRowModel().rows.length;
+
+  const startRow = table.getState().pagination.pageIndex * pageSize + 1;
+  const endRow = Math.min(startRow + pageSize - 1, totalRows);
+
+  const headerBg = theme === 'light' ? 'bg-white' : 'bg-black';
+  const headerBorder =
+    theme === 'light' ? 'border-gray-200' : 'border-gray-800';
+  const headerText = theme === 'light' ? 'text-gray-600' : 'text-gray-300';
+  const tableBg = theme === 'light' ? 'bg-white' : 'bg-black';
+  const rowBorder = theme === 'light' ? 'border-gray-100' : 'border-gray-900';
+  const rowHover = theme === 'light' ? 'hover:bg-gray-50' : 'hover:bg-gray-900';
+  const rowText = theme === 'light' ? 'text-gray-700' : 'text-gray-100';
+  const titleText = theme === 'light' ? 'text-black' : 'text-white';
+  const subtitleText = theme === 'light' ? 'text-gray-500' : 'text-gray-400';
+  const statsText = theme === 'light' ? 'text-gray-600' : 'text-gray-400';
+  const accentColor = '#E91E63';
 
   return (
-    <div className="space-y-4 m-4">
-      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-        <div className="flex-1 max-w-md w-full">
-          <SearchBar onSearchChange={handleSearchChange} />
-        </div>
-
+    <div className="space-y-5 p-6 md:p-8">
+      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 md:gap-6">
         <div className="flex items-center gap-3">
-          <div className="text-sm text-gray-600">
-            Total:
-            <span className="font-semibold text-gray-900">
-              {data.length.toLocaleString()}
-            </span>
-            {hasFilters && filteredRowCount !== data.length && (
-              <>
-                Filtered:{' '}
-                <span className="font-semibold text-gray-600">
-                  {filteredRowCount.toLocaleString()}
-                </span>
-              </>
-            )}
+          <div
+            className="p-2 rounded-lg"
+            style={{ backgroundColor: accentColor }}
+          >
+            <Music className="w-6 h-6 text-white" />
+          </div>
+          <div>
+            <h1 className={`text-4xl font-bold ${titleText}`}>Music Library</h1>
+            <p className={`text-sm ${subtitleText}`}>
+              Browse and filter your track collection
+            </p>
           </div>
         </div>
       </div>
+      <div className="flex justify-between gap-2.5">
+        <SearchBar onSearchChange={handleSearchChange} />
+
+        <div className={`flex items-center gap-2 text-sm ${statsText}`}>
+          <span>Total:</span>
+          <span className="font-bold" style={{ color: accentColor }}>
+            {data.length.toLocaleString()}
+          </span>
+          {hasFilters && filteredRowCount !== data.length && (
+            <>
+              <span className="mx-2">•</span>
+              <span className="font-bold" style={{ color: accentColor }}>
+                {filteredRowCount.toLocaleString()}
+              </span>
+              <span>filtered</span>
+            </>
+          )}
+        </div>
+      </div>
+
+      {filteredRowCount > 0 && (
+        <p className={`text-sm ${subtitleText}`}>
+          Showing{' '}
+          <span className="font-semibold" style={{ color: accentColor }}>
+            {totalRows > 0 ? startRow : 0}&nbsp;
+          </span>
+          to&nbsp;{' '}
+          <span className="font-semibold" style={{ color: accentColor }}>
+            {endRow}&nbsp;
+          </span>
+          of <span className="font-semibold"> {filteredRowCount}</span> results
+        </p>
+      )}
+
       <TableFilters table={table} data={data} />
-      <div className="border border-gray-200 rounded-lg overflow-hidden bg-white shadow-sm">
+
+      <div
+        className={`border ${headerBorder} rounded-lg overflow-hidden ${tableBg}`}
+      >
         <div className="overflow-x-auto">
           <Table>
             <TableHeader>
               {table.getHeaderGroups().map((headerGroup) => (
-                <TableRow key={headerGroup.id}>
+                <TableRow
+                  key={headerGroup.id}
+                  className={`${headerBg} ${headerBorder} border-b`}
+                >
                   {headerGroup.headers.map((header) => (
-                    <TableHead key={header.id}>
+                    <TableHead
+                      key={header.id}
+                      className={`px-6 py-4 text-xs font-semibold ${headerText} uppercase tracking-wide`}
+                    >
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -110,9 +170,15 @@ export const DataTable = ({ data }: { data: SpotifyTrack[] }) => {
             <TableBody>
               {table.getRowModel().rows.length > 0 ? (
                 table.getRowModel().rows.map((row) => (
-                  <TableRow key={row.id}>
+                  <TableRow
+                    key={row.id}
+                    className={`${rowBorder} border-b ${rowHover} transition-colors`}
+                  >
                     {row.getVisibleCells().map((cell) => (
-                      <TableCell key={cell.id}>
+                      <TableCell
+                        key={cell.id}
+                        className={`px-6 py-4 text-sm ${rowText}`}
+                      >
                         {flexRender(
                           cell.column.columnDef.cell,
                           cell.getContext()
@@ -125,62 +191,14 @@ export const DataTable = ({ data }: { data: SpotifyTrack[] }) => {
                 <TableRow>
                   <TableCell
                     colSpan={columns.length}
-                    className="px-4 py-16 text-center"
-                  ></TableCell>
+                    className={`px-6 py-16 text-center ${subtitleText}`}
+                  >
+                    No tracks found
+                  </TableCell>
                 </TableRow>
               )}
             </TableBody>
           </Table>
-          {/* <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
-              {table.getHeaderGroups().map((headerGroup) => (
-                <tr key={headerGroup.id}>
-                  {headerGroup.headers.map((header) => (
-                    <th
-                      key={header.id}
-                      className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                    >
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext(),
-                          )}
-                    </th>
-                  ))}
-                </tr>
-              ))}
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
-              {table.getRowModel().rows.length > 0 ? (
-                table.getRowModel().rows.map((row) => (
-                  <tr
-                    key={row.id}
-                    className="hover:bg-gray-50 transition-colors"
-                  >
-                    {row.getVisibleCells().map((cell) => (
-                      <td
-                        key={cell.id}
-                        className="px-4 py-3 whitespace-nowrap text-sm"
-                      >
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext(),
-                        )}
-                      </td>
-                    ))}
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td
-                    colSpan={columns.length}
-                    className="px-4 py-16 text-center"
-                  ></td>
-                </tr>
-              )}
-            </tbody>
-          </table> */}
         </div>
         {filteredRowCount > 0 && <PaginationTable table={table} />}
       </div>

@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
-import { Search, X } from "lucide-react";
-import { useDebounce } from "@/hooks/useDebounce";
+import { useState, useEffect } from 'react';
+import { Search, X } from 'lucide-react';
+import { useDebounce } from '@/hooks/useDebounce';
+import { useTheme } from '@/hooks/useTheme';
 
 interface SearchBarProps {
   onSearchChange: (value: string) => void;
@@ -10,10 +11,11 @@ interface SearchBarProps {
 
 export const SearchBar = ({
   onSearchChange,
-  placeholder = "Search tracks, artists, albums...",
+  placeholder = 'Search tracks, artists, albums...',
   debounceInMs = 300,
 }: SearchBarProps) => {
-  const [searchValue, setSearchValue] = useState("");
+  const { theme } = useTheme();
+  const [searchValue, setSearchValue] = useState('');
   const debouncedSearch = useDebounce(searchValue, debounceInMs);
 
   useEffect(() => {
@@ -21,35 +23,48 @@ export const SearchBar = ({
   }, [debouncedSearch, onSearchChange]);
 
   const handleClear = () => {
-    setSearchValue("");
+    setSearchValue('');
   };
 
+  const inputBg = theme === 'light' ? 'bg-white' : 'bg-gray-900';
+  const inputBorder = theme === 'light' ? 'border-gray-200' : 'border-gray-800';
+  const inputText = theme === 'light' ? 'text-black' : 'text-white';
+  const inputPlaceholder =
+    theme === 'light'
+      ? 'placeholder:text-gray-400'
+      : 'placeholder:text-gray-500';
+  const iconColor = theme === 'light' ? 'text-gray-400' : 'text-gray-500';
+  const hoverBorder =
+    theme === 'light' ? 'hover:border-gray-300' : 'hover:border-gray-700';
+  const accentColor = '#E91E63';
+
   return (
-    <div className="relative">
+    <div className="relative w-5/6">
       <div className="relative">
-        <Search className="absolute mt-1.5 left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+        <Search
+          className={`absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 ${iconColor}`}
+        />
         <input
           type="text"
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
           placeholder={placeholder}
-          className="w-full pl-10 pr-10 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent placeholder:text-gray-400 text-sm"
+          className={`w-full pl-12 pr-10 py-3 border ${inputBorder} rounded-lg focus:outline-none focus:ring-2 transition-all ${inputPlaceholder} text-sm ${inputBg} ${hoverBorder} ${inputText}`}
+          style={
+            {
+              '--tw-ring-color': accentColor,
+            } as React.CSSProperties
+          }
         />
         {searchValue && (
           <button
             onClick={handleClear}
-            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+            className={`absolute right-3 top-1/2 transform -translate-y-1/2 ${iconColor} hover:text-pink-500 transition-colors p-1`}
           >
             <X className="w-5 h-5" />
           </button>
         )}
       </div>
-      {debouncedSearch && (
-        <p className="text-sm text-gray-500 mt-1">
-          Searching for:{" "}
-          <span className="font-medium text-gray-700">{debouncedSearch}</span>
-        </p>
-      )}
     </div>
   );
 };

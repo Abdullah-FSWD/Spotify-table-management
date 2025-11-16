@@ -5,6 +5,7 @@ import { Filter, X } from 'lucide-react';
 import { Button } from './ui/button';
 import { CustomSelect } from '@/components/table/CustomSelect';
 import { CustomInput } from '@/components/table/CustomInput';
+import { useTheme } from '@/hooks/useTheme';
 
 type TableFiltersProps = {
   table: Table<SpotifyTrack>;
@@ -12,9 +13,8 @@ type TableFiltersProps = {
 };
 
 export const TableFilters = ({ table, data }: TableFiltersProps) => {
+  const { theme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
-
-  // TODO: visit once for more clarification
 
   const genres = useMemo(() => {
     const uniqueGenres = Array.from(
@@ -41,7 +41,6 @@ export const TableFilters = ({ table, data }: TableFiltersProps) => {
       .map(([artist]) => artist);
   }, [data]);
 
-  // Get current filter values
   const trackNameFilter =
     (table.getColumn('track_name')?.getFilterValue() as string) ?? '';
   const genreFilter =
@@ -76,6 +75,10 @@ export const TableFilters = ({ table, data }: TableFiltersProps) => {
     table.getColumn('track_album_release_date')?.setFilterValue('');
   };
 
+  const filtersText = theme === 'light' ? 'text-gray-700' : 'text-gray-300';
+  const filtersLabel = theme === 'light' ? 'text-gray-600' : 'text-gray-400';
+  const accentColor = '#E91E63';
+
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between">
@@ -83,12 +86,24 @@ export const TableFilters = ({ table, data }: TableFiltersProps) => {
           variant="outline"
           size="sm"
           onClick={() => setIsOpen(!isOpen)}
-          className="flex items-center gap-2 text-gray-600"
+          className={`flex items-center gap-2 ${filtersText} ${
+            theme === 'light'
+              ? 'border-gray-200 hover:border-gray-300 hover:text-black text-gray-800'
+              : 'border-gray-800 hover:border-pink-500 hover:text-pink-500 text-pink-800'
+          } transition-colors`}
+          style={
+            theme === 'dark'
+              ? ({ '--tw-text-opacity': '1' } as React.CSSProperties)
+              : {}
+          }
         >
-          <Filter className="w-4 h-4 text-gray-600" />
+          <Filter className="w-4 h-4" />
           Filters
           {hasActiveFilters && (
-            <span className="ml-1 px-2 py-0.5 text-xs font-medium bg-primary-100 text-gray-800 rounded-full">
+            <span
+              className={`ml-1 px-2.5 py-0.5 text-xs font-semibold rounded-full`}
+              style={{ backgroundColor: accentColor, color: 'white' }}
+            >
               {table.getState().columnFilters.length}
             </span>
           )}
@@ -99,16 +114,25 @@ export const TableFilters = ({ table, data }: TableFiltersProps) => {
             variant="ghost"
             size="sm"
             onClick={clearAllFilters}
-            className="flex items-center gap-2 text-red-600 hover:text-red-700"
+            className={`flex items-center gap-2 transition-colors`}
+            style={{
+              color: accentColor,
+              backgroundColor:
+                theme === 'light'
+                  ? 'rgba(233, 30, 99, 0.05)'
+                  : 'rgba(233, 30, 99, 0.1)',
+            }}
           >
             <X className="w-4 h-4" />
-            Clear all filters
+            Clear all
           </Button>
         )}
       </div>
 
       {isOpen && (
-        <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 space-y-4">
+        <div
+          className={`${theme === 'light' ? 'bg-white' : 'bg-gray-900'} border ${theme === 'light' ? 'border-gray-200' : 'border-gray-800'} rounded-lg p-4 space-y-4`}
+        >
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <div>
               <CustomInput
@@ -152,7 +176,7 @@ export const TableFilters = ({ table, data }: TableFiltersProps) => {
             </div>
 
             <div className="space-y-2">
-              <label className="block text-sm font-medium text-gray-700">
+              <label className={`block text-sm font-semibold ${filtersText}`}>
                 Popularity Range
               </label>
               <div className="flex items-center gap-2">
@@ -167,10 +191,10 @@ export const TableFilters = ({ table, data }: TableFiltersProps) => {
                       .getColumn('track_popularity')
                       ?.setFilterValue([value, popularityMax]);
                   }}
-                  className="w-20 px-2 py-1 border border-gray-300 rounded text-sm text-gray-400"
+                  className={`w-20 px-2.5 py-1.5 border ${theme === 'light' ? 'border-gray-200' : 'border-gray-800'} rounded text-sm ${filtersText} focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-colors ${theme === 'light' ? 'bg-white' : 'bg-gray-700'}`}
                   placeholder="Min"
                 />
-                <span className="text-gray-500 text-sm">to</span>
+                <span className={`text-sm ${filtersLabel}`}>to</span>
                 <input
                   type="number"
                   min="0"
@@ -182,7 +206,7 @@ export const TableFilters = ({ table, data }: TableFiltersProps) => {
                       .getColumn('track_popularity')
                       ?.setFilterValue([popularityMin, value]);
                   }}
-                  className="w-20 px-2 py-1 border border-gray-300 rounded text-sm text-gray-400"
+                  className={`w-20 px-2.5 py-1.5 border ${theme === 'light' ? 'border-gray-200' : 'border-gray-800'} rounded text-sm ${filtersText} focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-colors ${theme === 'light' ? 'bg-white' : 'bg-gray-700'}`}
                   placeholder="Max"
                 />
               </div>
@@ -205,50 +229,80 @@ export const TableFilters = ({ table, data }: TableFiltersProps) => {
           </div>
 
           {hasActiveFilters && (
-            <div className="pt-3 border-t border-gray-200 text-gray-500 text-sm">
-              <p className="text-sm text-gray-600 mb-2">Active filters:</p>
+            <div
+              className={`pt-3 border-t ${theme === 'light' ? 'border-gray-200' : 'border-gray-800'} space-y-2`}
+            >
+              <p
+                className={`text-xs font-semibold ${filtersLabel} uppercase tracking-wide`}
+              >
+                Active filters:
+              </p>
               <div className="flex flex-wrap gap-2">
                 {trackNameFilter && (
-                  <span className="inline-flex items-center gap-1 px-2 py-1 bg-primary-100 text-gray-800 rounded text-xs">
+                  <span
+                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-medium`}
+                    style={{ backgroundColor: accentColor, color: 'white' }}
+                  >
                     Track: {trackNameFilter}
                     <button
                       onClick={() =>
                         table.getColumn('track_name')?.setFilterValue('')
                       }
-                      className="hover:text-gray-900"
+                      className={`transition-colors ${
+                        theme === 'light'
+                          ? 'hover:text-black'
+                          : 'hover:text-white'
+                      }`}
                     >
-                      <X className="w-4 h-4 hover:bg-gray-200" />
+                      <X className="w-3.5 h-3.5" />
                     </button>
                   </span>
                 )}
                 {genreFilter && (
-                  <span className="inline-flex items-center gap-1 px-2 py-1 bg-primary-100 text-gray-800 rounded text-xs">
+                  <span
+                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-medium`}
+                    style={{ backgroundColor: accentColor, color: 'white' }}
+                  >
                     Genre: {genreFilter}
                     <button
                       onClick={() =>
                         table.getColumn('playlist_genre')?.setFilterValue('')
                       }
-                      className="hover:text-gray-900"
+                      className={`transition-colors ${
+                        theme === 'light'
+                          ? 'hover:text-black'
+                          : 'hover:text-white'
+                      }`}
                     >
-                      <X className="w-4 h-4 hover:bg-gray-200" />
+                      <X className="w-3.5 h-3.5" />
                     </button>
                   </span>
                 )}
                 {artistFilter && (
-                  <span className="inline-flex items-center gap-1 px-2 py-1 bg-primary-100 text-gray-800 rounded text-xs">
+                  <span
+                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-medium`}
+                    style={{ backgroundColor: accentColor, color: 'white' }}
+                  >
                     Artist: {artistFilter}
                     <button
                       onClick={() =>
                         table.getColumn('track_artist')?.setFilterValue('')
                       }
-                      className="hover:text-gray-900"
+                      className={`transition-colors ${
+                        theme === 'light'
+                          ? 'hover:text-black'
+                          : 'hover:text-white'
+                      }`}
                     >
-                      <X className="w-4 h-4 hover:bg-gray-200" />
+                      <X className="w-3.5 h-3.5" />
                     </button>
                   </span>
                 )}
                 {(popularityMin !== 0 || popularityMax !== 100) && (
-                  <span className="inline-flex items-center gap-1 px-2 py-1 bg-primary-100 text-gray-800 rounded text-xs">
+                  <span
+                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-medium`}
+                    style={{ backgroundColor: accentColor, color: 'white' }}
+                  >
                     Popularity: {popularityMin}-{popularityMax}
                     <button
                       onClick={() =>
@@ -256,14 +310,21 @@ export const TableFilters = ({ table, data }: TableFiltersProps) => {
                           .getColumn('track_popularity')
                           ?.setFilterValue(undefined)
                       }
-                      className="hover:text-gray-900"
+                      className={`transition-colors ${
+                        theme === 'light'
+                          ? 'hover:text-black'
+                          : 'hover:text-white'
+                      }`}
                     >
-                      <X className="w-4 h-4 hover:bg-gray-200" />
+                      <X className="w-3.5 h-3.5" />
                     </button>
                   </span>
                 )}
                 {yearFilter && (
-                  <span className="inline-flex items-center gap-1 px-2 py-1 bg-primary-100 text-gray-800 rounded text-xs">
+                  <span
+                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-medium`}
+                    style={{ backgroundColor: accentColor, color: 'white' }}
+                  >
                     Year: {yearFilter}
                     <button
                       onClick={() =>
@@ -271,9 +332,13 @@ export const TableFilters = ({ table, data }: TableFiltersProps) => {
                           .getColumn('track_album_release_date')
                           ?.setFilterValue('')
                       }
-                      className="hover:text-gray-900"
+                      className={`transition-colors ${
+                        theme === 'light'
+                          ? 'hover:text-black'
+                          : 'hover:text-white'
+                      }`}
                     >
-                      <X className="w-4 h-4 hover:bg-gray-200" />
+                      <X className="w-3.5 h-3.5" />
                     </button>
                   </span>
                 )}

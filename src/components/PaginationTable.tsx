@@ -3,10 +3,10 @@ import {
   ChevronRight,
   ChevronsLeft,
   ChevronsRight,
-} from "lucide-react";
-import type { Table } from "@tanstack/react-table";
-import { CustomSelect } from "./table/CustomSelect";
-import { Button } from "./ui/button";
+} from 'lucide-react';
+import type { Table } from '@tanstack/react-table';
+import { CustomSelect } from './table/CustomSelect';
+import { Button } from './ui/button';
 
 type PaginationTableProps<TData> = {
   table: Table<TData>;
@@ -26,10 +26,10 @@ export const PaginationTable = <TData,>({
   return (
     <div className="flex flex-col sm:flex-row items-center justify-between gap-4 px-4 py-3 bg-white border-t border-gray-200">
       <div className="text-sm text-gray-700">
-        Showing{" "}
-        <span className="font-medium">{totalRows > 0 ? startRow : 0}</span> to{" "}
-        <span className="font-medium">{endRow}</span> of{" "}
-        <span className="font-medium">{totalRows.toLocaleString()}</span>{" "}
+        Showing{' '}
+        <span className="font-medium">{totalRows > 0 ? startRow : 0}</span>
+        to <span className="font-medium">{endRow}</span> of{' '}
+        <span className="font-medium">{totalRows.toLocaleString()}</span>{' '}
         results
       </div>
 
@@ -42,9 +42,9 @@ export const PaginationTable = <TData,>({
             value={pageSize.toString()}
             onValueChange={(value) => table.setPageSize(Number(value))}
             options={[
-              { value: "25", label: "25" },
-              { value: "50", label: "50" },
-              { value: "100", label: "100" },
+              { value: '25', label: '25' },
+              { value: '50', label: '50' },
+              { value: '100', label: '100' },
             ]}
             className="w-20"
           />
@@ -75,7 +75,7 @@ export const PaginationTable = <TData,>({
 
           <div className="flex items-center gap-1 px-2">
             <span className="text-sm text-gray-700">
-              Page <span className="font-medium">{currentPage}</span> of{" "}
+              Page <span className="font-medium">{currentPage}</span> of{' '}
               <span className="font-medium">{pageCount}</span>
             </span>
           </div>
