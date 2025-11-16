@@ -1,11 +1,11 @@
-import { useState, useMemo } from 'react';
-import type { Table } from '@tanstack/react-table';
-import type { SpotifyTrack } from '@/types/spotify.types';
-import { Filter, X } from 'lucide-react';
-import { Button } from './ui/button';
-import { CustomSelect } from '@/components/table/CustomSelect';
-import { CustomInput } from '@/components/table/CustomInput';
-import { useTheme } from '@/hooks/useTheme';
+import { useState, useMemo } from "react";
+import type { Table } from "@tanstack/react-table";
+import type { SpotifyTrack } from "@/types/spotify.types";
+import { Filter, X } from "lucide-react";
+import { Button } from "./ui/button";
+import { CustomSelect } from "@/components/table/CustomSelect";
+import { CustomInput } from "@/components/table/CustomInput";
+import { useTheme } from "@/hooks/useTheme";
 
 type TableFiltersProps = {
   table: Table<SpotifyTrack>;
@@ -18,7 +18,7 @@ export const TableFilters = ({ table, data }: TableFiltersProps) => {
 
   const genres = useMemo(() => {
     const uniqueGenres = Array.from(
-      new Set(data.map((track) => track.playlist_genre).filter(Boolean))
+      new Set(data.map((track) => track.playlist_genre).filter(Boolean)),
     ).sort();
     return uniqueGenres;
   }, [data]);
@@ -32,7 +32,7 @@ export const TableFilters = ({ table, data }: TableFiltersProps) => {
         }
         return acc;
       },
-      {} as Record<string, number>
+      {} as Record<string, number>,
     );
 
     return Object.entries(artistCounts)
@@ -42,42 +42,42 @@ export const TableFilters = ({ table, data }: TableFiltersProps) => {
   }, [data]);
 
   const trackNameFilter =
-    (table.getColumn('track_name')?.getFilterValue() as string) ?? '';
+    (table.getColumn("track_name")?.getFilterValue() as string) ?? "";
   const genreFilter =
-    (table.getColumn('playlist_genre')?.getFilterValue() as string) ?? '';
+    (table.getColumn("playlist_genre")?.getFilterValue() as string) ?? "";
   const artistFilter =
-    (table.getColumn('track_artist')?.getFilterValue() as string) ?? '';
+    (table.getColumn("track_artist")?.getFilterValue() as string) ?? "";
   const popularityMin =
     (
-      table.getColumn('track_popularity')?.getFilterValue() as [number, number]
+      table.getColumn("track_popularity")?.getFilterValue() as [number, number]
     )?.[0] ?? 0;
   const popularityMax =
     (
-      table.getColumn('track_popularity')?.getFilterValue() as [number, number]
+      table.getColumn("track_popularity")?.getFilterValue() as [number, number]
     )?.[1] ?? 100;
   const yearFilter =
-    (table.getColumn('track_album_release_date')?.getFilterValue() as string) ??
-    '';
+    (table.getColumn("track_album_release_date")?.getFilterValue() as string) ??
+    "";
 
   const hasActiveFilters =
-    trackNameFilter !== '' ||
-    genreFilter !== '' ||
-    artistFilter !== '' ||
+    trackNameFilter !== "" ||
+    genreFilter !== "" ||
+    artistFilter !== "" ||
     popularityMin !== 0 ||
     popularityMax !== 100 ||
-    yearFilter !== '';
+    yearFilter !== "";
 
   const clearAllFilters = () => {
-    table.getColumn('track_name')?.setFilterValue('');
-    table.getColumn('playlist_genre')?.setFilterValue('');
-    table.getColumn('track_artist')?.setFilterValue('');
-    table.getColumn('track_popularity')?.setFilterValue(undefined);
-    table.getColumn('track_album_release_date')?.setFilterValue('');
+    table.getColumn("track_name")?.setFilterValue("");
+    table.getColumn("playlist_genre")?.setFilterValue("");
+    table.getColumn("track_artist")?.setFilterValue("");
+    table.getColumn("track_popularity")?.setFilterValue(undefined);
+    table.getColumn("track_album_release_date")?.setFilterValue("");
   };
 
-  const filtersText = theme === 'light' ? 'text-gray-700' : 'text-gray-300';
-  const filtersLabel = theme === 'light' ? 'text-gray-600' : 'text-gray-400';
-  const accentColor = '#E91E63';
+  const filtersText = theme === "light" ? "text-gray-700" : "text-gray-300";
+  const filtersLabel = theme === "light" ? "text-gray-600" : "text-gray-400";
+  const accentColor = "#E91E63";
 
   return (
     <div className="space-y-3">
@@ -87,13 +87,13 @@ export const TableFilters = ({ table, data }: TableFiltersProps) => {
           size="sm"
           onClick={() => setIsOpen(!isOpen)}
           className={`flex items-center gap-2 ${filtersText} ${
-            theme === 'light'
-              ? 'border-gray-200 hover:border-gray-300 hover:text-black text-gray-800'
-              : 'border-gray-800 hover:border-pink-500 hover:text-pink-500 text-pink-800'
+            theme === "light"
+              ? "border-gray-200 hover:border-gray-300 hover:text-black text-gray-800"
+              : "border-gray-800 hover:border-pink-500 hover:text-pink-500 text-pink-800"
           } transition-colors`}
           style={
-            theme === 'dark'
-              ? ({ '--tw-text-opacity': '1' } as React.CSSProperties)
+            theme === "dark"
+              ? ({ "--tw-text-opacity": "1" } as React.CSSProperties)
               : {}
           }
         >
@@ -102,7 +102,7 @@ export const TableFilters = ({ table, data }: TableFiltersProps) => {
           {hasActiveFilters && (
             <span
               className={`ml-1 px-2.5 py-0.5 text-xs font-semibold rounded-full`}
-              style={{ backgroundColor: accentColor, color: 'white' }}
+              style={{ backgroundColor: accentColor, color: "white" }}
             >
               {table.getState().columnFilters.length}
             </span>
@@ -118,9 +118,9 @@ export const TableFilters = ({ table, data }: TableFiltersProps) => {
             style={{
               color: accentColor,
               backgroundColor:
-                theme === 'light'
-                  ? 'rgba(233, 30, 99, 0.05)'
-                  : 'rgba(233, 30, 99, 0.1)',
+                theme === "light"
+                  ? "rgba(233, 30, 99, 0.05)"
+                  : "rgba(233, 30, 99, 0.1)",
             }}
           >
             <X className="w-4 h-4" />
@@ -131,7 +131,7 @@ export const TableFilters = ({ table, data }: TableFiltersProps) => {
 
       {isOpen && (
         <div
-          className={`${theme === 'light' ? 'bg-white' : 'bg-gray-900'} border ${theme === 'light' ? 'border-gray-200' : 'border-gray-800'} rounded-lg p-4 space-y-4`}
+          className={`${theme === "light" ? "bg-white" : "bg-gray-900"} border ${theme === "light" ? "border-gray-200" : "border-gray-800"} rounded-lg p-4 space-y-4`}
         >
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <div>
@@ -140,7 +140,7 @@ export const TableFilters = ({ table, data }: TableFiltersProps) => {
                 placeholder="Filter by track name..."
                 value={trackNameFilter}
                 onChange={(e) =>
-                  table.getColumn('track_name')?.setFilterValue(e.target.value)
+                  table.getColumn("track_name")?.setFilterValue(e.target.value)
                 }
               />
             </div>
@@ -151,7 +151,7 @@ export const TableFilters = ({ table, data }: TableFiltersProps) => {
                 placeholder="All genres"
                 value={genreFilter}
                 onValueChange={(value) =>
-                  table.getColumn('playlist_genre')?.setFilterValue(value)
+                  table.getColumn("playlist_genre")?.setFilterValue(value)
                 }
                 options={genres.map((genre) => ({
                   value: genre,
@@ -166,7 +166,7 @@ export const TableFilters = ({ table, data }: TableFiltersProps) => {
                 placeholder="All artists"
                 value={artistFilter}
                 onValueChange={(value) =>
-                  table.getColumn('track_artist')?.setFilterValue(value)
+                  table.getColumn("track_artist")?.setFilterValue(value)
                 }
                 options={artists.map((artist) => ({
                   value: artist,
@@ -188,10 +188,10 @@ export const TableFilters = ({ table, data }: TableFiltersProps) => {
                   onChange={(e) => {
                     const value = Number(e.target.value);
                     table
-                      .getColumn('track_popularity')
+                      .getColumn("track_popularity")
                       ?.setFilterValue([value, popularityMax]);
                   }}
-                  className={`w-20 px-2.5 py-1.5 border ${theme === 'light' ? 'border-gray-200' : 'border-gray-800'} rounded text-sm ${filtersText} focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-colors ${theme === 'light' ? 'bg-white' : 'bg-gray-700'}`}
+                  className={`w-20 px-2.5 py-1.5 border ${theme === "light" ? "border-gray-200" : "border-gray-800"} rounded text-sm ${filtersText} focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-colors ${theme === "light" ? "bg-white" : "bg-gray-700"}`}
                   placeholder="Min"
                 />
                 <span className={`text-sm ${filtersLabel}`}>to</span>
@@ -203,10 +203,10 @@ export const TableFilters = ({ table, data }: TableFiltersProps) => {
                   onChange={(e) => {
                     const value = Number(e.target.value);
                     table
-                      .getColumn('track_popularity')
+                      .getColumn("track_popularity")
                       ?.setFilterValue([popularityMin, value]);
                   }}
-                  className={`w-20 px-2.5 py-1.5 border ${theme === 'light' ? 'border-gray-200' : 'border-gray-800'} rounded text-sm ${filtersText} focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-colors ${theme === 'light' ? 'bg-white' : 'bg-gray-700'}`}
+                  className={`w-20 px-2.5 py-1.5 border ${theme === "light" ? "border-gray-200" : "border-gray-800"} rounded text-sm ${filtersText} focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-colors ${theme === "light" ? "bg-white" : "bg-gray-700"}`}
                   placeholder="Max"
                 />
               </div>
@@ -219,9 +219,9 @@ export const TableFilters = ({ table, data }: TableFiltersProps) => {
                 value={yearFilter}
                 onChange={(e) =>
                   table
-                    .getColumn('track_album_release_date')
+                    .getColumn("track_album_release_date")
                     ?.setFilterValue(
-                      e.target.value ? Number(e.target.value) : ''
+                      e.target.value ? Number(e.target.value) : "",
                     )
                 }
               />
@@ -230,7 +230,7 @@ export const TableFilters = ({ table, data }: TableFiltersProps) => {
 
           {hasActiveFilters && (
             <div
-              className={`pt-3 border-t ${theme === 'light' ? 'border-gray-200' : 'border-gray-800'} space-y-2`}
+              className={`pt-3 border-t ${theme === "light" ? "border-gray-200" : "border-gray-800"} space-y-2`}
             >
               <p
                 className={`text-xs font-semibold ${filtersLabel} uppercase tracking-wide`}
@@ -241,17 +241,17 @@ export const TableFilters = ({ table, data }: TableFiltersProps) => {
                 {trackNameFilter && (
                   <span
                     className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-medium`}
-                    style={{ backgroundColor: accentColor, color: 'white' }}
+                    style={{ backgroundColor: accentColor, color: "white" }}
                   >
                     Track: {trackNameFilter}
                     <button
                       onClick={() =>
-                        table.getColumn('track_name')?.setFilterValue('')
+                        table.getColumn("track_name")?.setFilterValue("")
                       }
                       className={`transition-colors ${
-                        theme === 'light'
-                          ? 'hover:text-black'
-                          : 'hover:text-white'
+                        theme === "light"
+                          ? "hover:text-black"
+                          : "hover:text-white"
                       }`}
                     >
                       <X className="w-3.5 h-3.5" />
@@ -261,17 +261,17 @@ export const TableFilters = ({ table, data }: TableFiltersProps) => {
                 {genreFilter && (
                   <span
                     className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-medium`}
-                    style={{ backgroundColor: accentColor, color: 'white' }}
+                    style={{ backgroundColor: accentColor, color: "white" }}
                   >
                     Genre: {genreFilter}
                     <button
                       onClick={() =>
-                        table.getColumn('playlist_genre')?.setFilterValue('')
+                        table.getColumn("playlist_genre")?.setFilterValue("")
                       }
                       className={`transition-colors ${
-                        theme === 'light'
-                          ? 'hover:text-black'
-                          : 'hover:text-white'
+                        theme === "light"
+                          ? "hover:text-black"
+                          : "hover:text-white"
                       }`}
                     >
                       <X className="w-3.5 h-3.5" />
@@ -281,17 +281,17 @@ export const TableFilters = ({ table, data }: TableFiltersProps) => {
                 {artistFilter && (
                   <span
                     className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-medium`}
-                    style={{ backgroundColor: accentColor, color: 'white' }}
+                    style={{ backgroundColor: accentColor, color: "white" }}
                   >
                     Artist: {artistFilter}
                     <button
                       onClick={() =>
-                        table.getColumn('track_artist')?.setFilterValue('')
+                        table.getColumn("track_artist")?.setFilterValue("")
                       }
                       className={`transition-colors ${
-                        theme === 'light'
-                          ? 'hover:text-black'
-                          : 'hover:text-white'
+                        theme === "light"
+                          ? "hover:text-black"
+                          : "hover:text-white"
                       }`}
                     >
                       <X className="w-3.5 h-3.5" />
@@ -301,19 +301,19 @@ export const TableFilters = ({ table, data }: TableFiltersProps) => {
                 {(popularityMin !== 0 || popularityMax !== 100) && (
                   <span
                     className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-medium`}
-                    style={{ backgroundColor: accentColor, color: 'white' }}
+                    style={{ backgroundColor: accentColor, color: "white" }}
                   >
                     Popularity: {popularityMin}-{popularityMax}
                     <button
                       onClick={() =>
                         table
-                          .getColumn('track_popularity')
+                          .getColumn("track_popularity")
                           ?.setFilterValue(undefined)
                       }
                       className={`transition-colors ${
-                        theme === 'light'
-                          ? 'hover:text-black'
-                          : 'hover:text-white'
+                        theme === "light"
+                          ? "hover:text-black"
+                          : "hover:text-white"
                       }`}
                     >
                       <X className="w-3.5 h-3.5" />
@@ -323,19 +323,19 @@ export const TableFilters = ({ table, data }: TableFiltersProps) => {
                 {yearFilter && (
                   <span
                     className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-medium`}
-                    style={{ backgroundColor: accentColor, color: 'white' }}
+                    style={{ backgroundColor: accentColor, color: "white" }}
                   >
                     Year: {yearFilter}
                     <button
                       onClick={() =>
                         table
-                          .getColumn('track_album_release_date')
-                          ?.setFilterValue('')
+                          .getColumn("track_album_release_date")
+                          ?.setFilterValue("")
                       }
                       className={`transition-colors ${
-                        theme === 'light'
-                          ? 'hover:text-black'
-                          : 'hover:text-white'
+                        theme === "light"
+                          ? "hover:text-black"
+                          : "hover:text-white"
                       }`}
                     >
                       <X className="w-3.5 h-3.5" />

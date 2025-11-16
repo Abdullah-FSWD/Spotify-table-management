@@ -1,9 +1,9 @@
-import './App.css';
-import { DataTable } from './components/DataTable';
-import { ToggleTheme } from './components/ToggleTheme';
-import { useSpotifyTracksData } from './hooks/useSpotifyTracks';
-import { useTheme } from './hooks/useTheme';
-import { cn } from './lib/utils';
+import "./App.css";
+import { DataTable } from "./components/DataTable";
+import { ToggleTheme } from "./components/ToggleTheme";
+import { useSpotifyTracksData } from "./hooks/useSpotifyTracks";
+import { useTheme } from "./hooks/useTheme";
+import { cn } from "./lib/utils";
 
 function App() {
   const { data } = useSpotifyTracksData();
@@ -11,9 +11,9 @@ function App() {
   return (
     <div
       className={cn(
-        theme === 'light'
-          ? 'min-h-screen bg-white text-slate-900'
-          : 'min-h-screen bg-black text-white'
+        theme === "light"
+          ? "min-h-screen bg-white text-slate-900"
+          : "min-h-screen bg-black text-white",
       )}
     >
       <div className="absolute top-6 right-6 z-50">
