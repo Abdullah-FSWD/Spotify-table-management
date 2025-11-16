@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from 'react';
 import {
   useReactTable,
   getCoreRowModel,
@@ -6,15 +6,15 @@ import {
   flexRender,
   getSortedRowModel,
   getFilteredRowModel,
-} from "@tanstack/react-table";
-import { createColumns } from "@/constants/columns";
-import type { SpotifyTrack } from "@/types/spotify.types";
-import type { SortingState } from "@tanstack/react-table";
-import { SearchBar } from "./SearchBar";
-import { TableFilters } from "./TableFilters";
-import { PaginationTable } from "./PaginationTable";
-import { useTheme } from "@/hooks/useTheme";
-import { Music } from "lucide-react";
+} from '@tanstack/react-table';
+import { createColumns } from '@/constants/columns';
+import type { SpotifyTrack } from '@/types/spotify.types';
+import type { SortingState } from '@tanstack/react-table';
+import { SearchBar } from './SearchBar';
+import { TableFilters } from './TableFilters';
+import { PaginationTable } from './PaginationTable';
+import { useTheme } from '@/hooks/useTheme';
+import { Music } from 'lucide-react';
 import {
   Table,
   TableBody,
@@ -22,13 +22,14 @@ import {
   TableHeader,
   TableRow,
   TableCell,
-} from "./ui/table";
+} from './ui/table';
+import { EmptyState } from './EmptyState';
 
 export const DataTable = ({ data }: { data: SpotifyTrack[] }) => {
   const { theme } = useTheme();
   const columns = useMemo(() => createColumns(), []);
   const [sorting, setSorting] = useState<SortingState>([]);
-  const [globalFilter, setGlobalFilter] = useState("");
+  const [globalFilter, setGlobalFilter] = useState('');
 
   // eslint-disable-next-line
   const table = useReactTable({
@@ -64,25 +65,25 @@ export const DataTable = ({ data }: { data: SpotifyTrack[] }) => {
   }, []);
 
   const filteredRowCount = table.getFilteredRowModel().rows.length;
-  const hasFilters = globalFilter !== "";
+  const hasFilters = globalFilter !== '';
   const pageSize = table.getState().pagination.pageSize;
   const totalRows = table.getFilteredRowModel().rows.length;
 
   const startRow = table.getState().pagination.pageIndex * pageSize + 1;
   const endRow = Math.min(startRow + pageSize - 1, totalRows);
 
-  const headerBg = theme === "light" ? "bg-white" : "bg-black";
+  const headerBg = theme === 'light' ? 'bg-white' : 'bg-black';
   const headerBorder =
-    theme === "light" ? "border-gray-200" : "border-gray-800";
-  const headerText = theme === "light" ? "text-gray-600" : "text-gray-300";
-  const tableBg = theme === "light" ? "bg-white" : "bg-black";
-  const rowBorder = theme === "light" ? "border-gray-100" : "border-gray-900";
-  const rowHover = theme === "light" ? "hover:bg-gray-50" : "hover:bg-gray-900";
-  const rowText = theme === "light" ? "text-gray-700" : "text-gray-100";
-  const titleText = theme === "light" ? "text-black" : "text-white";
-  const subtitleText = theme === "light" ? "text-gray-500" : "text-gray-400";
-  const statsText = theme === "light" ? "text-gray-600" : "text-gray-400";
-  const accentColor = "#E91E63";
+    theme === 'light' ? 'border-gray-200' : 'border-gray-800';
+  const headerText = theme === 'light' ? 'text-gray-600' : 'text-gray-300';
+  const tableBg = theme === 'light' ? 'bg-white' : 'bg-black';
+  const rowBorder = theme === 'light' ? 'border-gray-100' : 'border-gray-900';
+  const rowHover = theme === 'light' ? 'hover:bg-gray-50' : 'hover:bg-gray-900';
+  const rowText = theme === 'light' ? 'text-gray-700' : 'text-gray-100';
+  const titleText = theme === 'light' ? 'text-black' : 'text-white';
+  const subtitleText = theme === 'light' ? 'text-gray-500' : 'text-gray-400';
+  const statsText = theme === 'light' ? 'text-gray-600' : 'text-gray-400';
+  const accentColor = '#E91E63';
 
   return (
     <div className="space-y-5 p-6 md:p-8">
@@ -124,11 +125,11 @@ export const DataTable = ({ data }: { data: SpotifyTrack[] }) => {
 
       {filteredRowCount > 0 && (
         <p className={`text-sm ${subtitleText}`}>
-          Showing{" "}
+          Showing{' '}
           <span className="font-semibold" style={{ color: accentColor }}>
             {totalRows > 0 ? startRow : 0}&nbsp;
           </span>
-          to&nbsp;{" "}
+          to&nbsp;{' '}
           <span className="font-semibold" style={{ color: accentColor }}>
             {endRow}&nbsp;
           </span>
@@ -158,7 +159,7 @@ export const DataTable = ({ data }: { data: SpotifyTrack[] }) => {
                         ? null
                         : flexRender(
                             header.column.columnDef.header,
-                            header.getContext(),
+                            header.getContext()
                           )}
                     </TableHead>
                   ))}
@@ -179,7 +180,7 @@ export const DataTable = ({ data }: { data: SpotifyTrack[] }) => {
                       >
                         {flexRender(
                           cell.column.columnDef.cell,
-                          cell.getContext(),
+                          cell.getContext()
                         )}
                       </TableCell>
                     ))}
@@ -191,7 +192,15 @@ export const DataTable = ({ data }: { data: SpotifyTrack[] }) => {
                     colSpan={columns.length}
                     className={`px-6 py-16 text-center ${subtitleText}`}
                   >
-                    No tracks found
+                    <EmptyState
+                      icon={<Music className="w-12 h-12 text-gray-400" />}
+                      title="No tracks found"
+                      description={
+                        hasFilters
+                          ? 'Try adjusting your search or filters'
+                          : 'No data available'
+                      }
+                    />
                   </TableCell>
                 </TableRow>
               )}
