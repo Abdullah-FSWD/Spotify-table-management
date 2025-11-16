@@ -1,5 +1,5 @@
-import { createContext } from 'react';
-import type { SpotifyTrack } from '../types/spotify.types';
+import { createContext } from "react";
+import type { SpotifyTrack } from "../types/spotify.types";
 
 type SpotifyContextTypes = {
   data: SpotifyTrack[];
@@ -8,5 +8,5 @@ type SpotifyContextTypes = {
 };
 
 export const SpotifyContext = createContext<SpotifyContextTypes | undefined>(
-  undefined
+  undefined,
 );

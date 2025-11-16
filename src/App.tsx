@@ -1,6 +1,6 @@
-import './App.css';
-import { DataTable } from './components/DataTable';
-import { useSpotifyTracksData } from './hooks/useSpotifyTracks';
+import "./App.css";
+import { DataTable } from "./components/DataTable";
+import { useSpotifyTracksData } from "./hooks/useSpotifyTracks";
 function App() {
   const { data } = useSpotifyTracksData();
   return (

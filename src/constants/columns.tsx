@@ -1,20 +1,20 @@
-import type { SpotifyTrack } from '@/types/spotify.types';
-import { type ColumnDef } from '@tanstack/react-table';
-import { ArrowUpDown, ArrowUp, ArrowDown } from 'lucide-react';
+import type { SpotifyTrack } from "@/types/spotify.types";
+import { type ColumnDef } from "@tanstack/react-table";
+import { ArrowUpDown, ArrowUp, ArrowDown } from "lucide-react";
 
 export const createColumns = (): ColumnDef<SpotifyTrack>[] => [
   {
-    accessorKey: 'track_name',
+    accessorKey: "track_name",
     header: ({ column }) => {
       return (
         <button
           className="flex items-center gap-2 font-semibold hover:text-gray-900 transition-colors"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Track Name
-          {column.getIsSorted() === 'asc' ? (
+          {column.getIsSorted() === "asc" ? (
             <ArrowUp className="w-4 h-4" />
-          ) : column.getIsSorted() === 'desc' ? (
+          ) : column.getIsSorted() === "desc" ? (
             <ArrowDown className="w-4 h-4" />
           ) : (
             <ArrowUpDown className="w-4 h-4 opacity-50" />
@@ -34,17 +34,17 @@ export const createColumns = (): ColumnDef<SpotifyTrack>[] => [
     enableColumnFilter: true,
   },
   {
-    accessorKey: 'track_artist',
+    accessorKey: "track_artist",
     header: ({ column }) => {
       return (
         <button
           className="flex items-center gap-2 font-semibold hover:text-gray-900 transition-colors"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Artist
-          {column.getIsSorted() === 'asc' ? (
+          {column.getIsSorted() === "asc" ? (
             <ArrowUp className="w-4 h-4" />
-          ) : column.getIsSorted() === 'desc' ? (
+          ) : column.getIsSorted() === "desc" ? (
             <ArrowDown className="w-4 h-4" />
           ) : (
             <ArrowUpDown className="w-4 h-4 opacity-50" />
@@ -64,17 +64,17 @@ export const createColumns = (): ColumnDef<SpotifyTrack>[] => [
     enableColumnFilter: true,
   },
   {
-    accessorKey: 'track_album_name',
+    accessorKey: "track_album_name",
     header: ({ column }) => {
       return (
         <button
           className="flex items-center gap-2 font-semibold hover:text-gray-900 transition-colors"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Album
-          {column.getIsSorted() === 'asc' ? (
+          {column.getIsSorted() === "asc" ? (
             <ArrowUp className="w-4 h-4" />
-          ) : column.getIsSorted() === 'desc' ? (
+          ) : column.getIsSorted() === "desc" ? (
             <ArrowDown className="w-4 h-4" />
           ) : (
             <ArrowUpDown className="w-4 h-4 opacity-50" />
@@ -93,17 +93,17 @@ export const createColumns = (): ColumnDef<SpotifyTrack>[] => [
     enableSorting: true,
   },
   {
-    accessorKey: 'playlist_genre',
+    accessorKey: "playlist_genre",
     header: ({ column }) => {
       return (
         <button
           className="flex items-center gap-2 font-semibold hover:text-gray-900 transition-colors"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Genre
-          {column.getIsSorted() === 'asc' ? (
+          {column.getIsSorted() === "asc" ? (
             <ArrowUp className="w-4 h-4" />
-          ) : column.getIsSorted() === 'desc' ? (
+          ) : column.getIsSorted() === "desc" ? (
             <ArrowDown className="w-4 h-4" />
           ) : (
             <ArrowUpDown className="w-4 h-4 opacity-50" />
@@ -123,17 +123,17 @@ export const createColumns = (): ColumnDef<SpotifyTrack>[] => [
     enableColumnFilter: true,
   },
   {
-    accessorKey: 'track_popularity',
+    accessorKey: "track_popularity",
     header: ({ column }) => {
       return (
         <button
           className="flex items-center gap-2 font-semibold hover:text-gray-900 transition-colors"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Popularity
-          {column.getIsSorted() === 'asc' ? (
+          {column.getIsSorted() === "asc" ? (
             <ArrowUp className="w-4 h-4" />
-          ) : column.getIsSorted() === 'desc' ? (
+          ) : column.getIsSorted() === "desc" ? (
             <ArrowDown className="w-4 h-4" />
           ) : (
             <ArrowUpDown className="w-4 h-4 opacity-50" />
@@ -161,17 +161,17 @@ export const createColumns = (): ColumnDef<SpotifyTrack>[] => [
     enableColumnFilter: true,
   },
   {
-    accessorKey: 'duration_formatted',
+    accessorKey: "duration_formatted",
     header: ({ column }) => {
       return (
         <button
           className="flex items-center gap-2 font-semibold hover:text-gray-900 transition-colors"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Duration
-          {column.getIsSorted() === 'asc' ? (
+          {column.getIsSorted() === "asc" ? (
             <ArrowUp className="w-4 h-4" />
-          ) : column.getIsSorted() === 'desc' ? (
+          ) : column.getIsSorted() === "desc" ? (
             <ArrowDown className="w-4 h-4" />
           ) : (
             <ArrowUpDown className="w-4 h-4 opacity-50" />
@@ -187,17 +187,17 @@ export const createColumns = (): ColumnDef<SpotifyTrack>[] => [
     enableSorting: true,
   },
   {
-    accessorKey: 'release_year',
+    accessorKey: "release_year",
     header: ({ column }) => {
       return (
         <button
           className="flex items-center gap-2 font-semibold hover:text-gray-900 transition-colors"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Year
-          {column.getIsSorted() === 'asc' ? (
+          {column.getIsSorted() === "asc" ? (
             <ArrowUp className="w-4 h-4" />
-          ) : column.getIsSorted() === 'desc' ? (
+          ) : column.getIsSorted() === "desc" ? (
             <ArrowDown className="w-4 h-4" />
           ) : (
             <ArrowUpDown className="w-4 h-4 opacity-50" />
@@ -207,23 +207,23 @@ export const createColumns = (): ColumnDef<SpotifyTrack>[] => [
     },
     cell: (info) => {
       const year = info.getValue() as number;
-      return <div className="text-gray-600 text-sm">{year || 'N/A'}</div>;
+      return <div className="text-gray-600 text-sm">{year || "N/A"}</div>;
     },
     enableSorting: true,
     enableColumnFilter: true,
   },
   {
-    accessorKey: 'energy',
+    accessorKey: "energy",
     header: ({ column }) => {
       return (
         <button
           className="flex items-center gap-2 font-semibold hover:text-gray-900 transition-colors"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Energy
-          {column.getIsSorted() === 'asc' ? (
+          {column.getIsSorted() === "asc" ? (
             <ArrowUp className="w-4 h-4" />
-          ) : column.getIsSorted() === 'desc' ? (
+          ) : column.getIsSorted() === "desc" ? (
             <ArrowDown className="w-4 h-4" />
           ) : (
             <ArrowUpDown className="w-4 h-4 opacity-50" />
@@ -238,17 +238,17 @@ export const createColumns = (): ColumnDef<SpotifyTrack>[] => [
     enableSorting: true,
   },
   {
-    accessorKey: 'danceability',
+    accessorKey: "danceability",
     header: ({ column }) => {
       return (
         <button
           className="flex items-center gap-2 font-semibold hover:text-gray-900 transition-colors"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Danceability
-          {column.getIsSorted() === 'asc' ? (
+          {column.getIsSorted() === "asc" ? (
             <ArrowUp className="w-4 h-4" />
-          ) : column.getIsSorted() === 'desc' ? (
+          ) : column.getIsSorted() === "desc" ? (
             <ArrowDown className="w-4 h-4" />
           ) : (
             <ArrowUpDown className="w-4 h-4 opacity-50" />

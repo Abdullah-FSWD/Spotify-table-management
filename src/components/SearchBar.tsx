@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import { Search, X } from 'lucide-react';
-import { useDebounce } from '@/hooks/useDebounce';
+import { useState, useEffect } from "react";
+import { Search, X } from "lucide-react";
+import { useDebounce } from "@/hooks/useDebounce";
 
 interface SearchBarProps {
   onSearchChange: (value: string) => void;
@@ -10,10 +10,10 @@ interface SearchBarProps {
 
 export const SearchBar = ({
   onSearchChange,
-  placeholder = 'Search tracks, artists, albums...',
+  placeholder = "Search tracks, artists, albums...",
   debounceInMs = 300,
 }: SearchBarProps) => {
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useState("");
   const debouncedSearch = useDebounce(searchValue, debounceInMs);
 
   useEffect(() => {
@@ -21,7 +21,7 @@ export const SearchBar = ({
   }, [debouncedSearch, onSearchChange]);
 
   const handleClear = () => {
-    setSearchValue('');
+    setSearchValue("");
   };
 
   return (
@@ -46,7 +46,7 @@ export const SearchBar = ({
       </div>
       {debouncedSearch && (
         <p className="text-sm text-gray-500 mt-1">
-          Searching for:{' '}
+          Searching for:{" "}
           <span className="font-medium text-gray-700">{debouncedSearch}</span>
         </p>
       )}
