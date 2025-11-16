@@ -1,12 +1,12 @@
 export const formatYear = (dateString: string | null | undefined): number => {
-  console.log(dateString);
-  if (!dateString || typeof dateString !== 'string') return 0;
+  if (!dateString || typeof dateString !== "string") return 0;
 
   try {
-    const year = parseInt(dateString.split('-')[0], 10);
+    const year = parseInt(dateString.split("-")[0], 10);
     return isNaN(year) ? 0 : year;
-  } catch (error) {
-    console.warn('Failed to parse year from:', dateString);
+  } catch (error: unknown) {
+    console.warn("Failed to parse year from:", dateString);
+    console.log("error", error);
     return 0;
   }
 };

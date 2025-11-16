@@ -21,7 +21,6 @@ export function SpotifyTracksProvider({ children }: { children: ReactNode }) {
           skipEmptyLines: true,
           transformHeader: (header) => header.trim(),
           complete: (results: { data: SpotifyTrack[] }) => {
-            console.log(results.data);
             setData(results.data);
             setLoading(false);
           },

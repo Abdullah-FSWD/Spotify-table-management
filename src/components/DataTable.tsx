@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from "react";
 import {
   useReactTable,
   getCoreRowModel,
@@ -6,19 +6,28 @@ import {
   flexRender,
   getSortedRowModel,
   getFilteredRowModel,
-} from '@tanstack/react-table';
-import { createColumns } from '@/constants/columns';
-import type { SpotifyTrack } from '@/types/spotify.types';
-import type { SortingState } from '@tanstack/react-table';
-import { SearchBar } from './SearchBar';
-import { TableFilters } from './TableFilters';
-import { PaginationTable } from './PaginationTable';
+} from "@tanstack/react-table";
+import { createColumns } from "@/constants/columns";
+import type { SpotifyTrack } from "@/types/spotify.types";
+import type { SortingState } from "@tanstack/react-table";
+import { SearchBar } from "./SearchBar";
+import { TableFilters } from "./TableFilters";
+import { PaginationTable } from "./PaginationTable";
+import {
+  Table,
+  TableBody,
+  TableHead,
+  TableHeader,
+  TableRow,
+  TableCell,
+} from "./ui/table";
 
 export const DataTable = ({ data }: { data: SpotifyTrack[] }) => {
   const columns = useMemo(() => createColumns(), []);
   const [sorting, setSorting] = useState<SortingState>([]);
-  const [globalFilter, setGlobalFilter] = useState('');
+  const [globalFilter, setGlobalFilter] = useState("");
 
+  // eslint-disable-next-line
   const table = useReactTable({
     data,
     columns,
@@ -52,7 +61,7 @@ export const DataTable = ({ data }: { data: SpotifyTrack[] }) => {
   }, []);
 
   const filteredRowCount = table.getFilteredRowModel().rows.length;
-  const hasFilters = globalFilter !== '';
+  const hasFilters = globalFilter !== "";
 
   return (
     <div className="space-y-4">
@@ -69,7 +78,7 @@ export const DataTable = ({ data }: { data: SpotifyTrack[] }) => {
             </span>
             {hasFilters && filteredRowCount !== data.length && (
               <>
-                Filtered:{' '}
+                Filtered:{" "}
                 <span className="font-semibold text-gray-600">
                   {filteredRowCount.toLocaleString()}
                 </span>
@@ -81,7 +90,48 @@ export const DataTable = ({ data }: { data: SpotifyTrack[] }) => {
       <TableFilters table={table} data={data} />
       <div className="border border-gray-200 rounded-lg overflow-hidden bg-white shadow-sm">
         <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200">
+          <Table>
+            <TableHeader>
+              {table.getHeaderGroups().map((headerGroup) => (
+                <TableRow key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => (
+                    <TableHead key={header.id}>
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(
+                            header.column.columnDef.header,
+                            header.getContext(),
+                          )}
+                    </TableHead>
+                  ))}
+                </TableRow>
+              ))}
+            </TableHeader>
+            <TableBody>
+              {table.getRowModel().rows.length > 0 ? (
+                table.getRowModel().rows.map((row) => (
+                  <TableRow key={row.id}>
+                    {row.getVisibleCells().map((cell) => (
+                      <TableCell key={cell.id}>
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext(),
+                        )}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell
+                    colSpan={columns.length}
+                    className="px-4 py-16 text-center"
+                  ></TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+          {/* <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               {table.getHeaderGroups().map((headerGroup) => (
                 <tr key={headerGroup.id}>
@@ -94,7 +144,7 @@ export const DataTable = ({ data }: { data: SpotifyTrack[] }) => {
                         ? null
                         : flexRender(
                             header.column.columnDef.header,
-                            header.getContext()
+                            header.getContext(),
                           )}
                     </th>
                   ))}
@@ -115,7 +165,7 @@ export const DataTable = ({ data }: { data: SpotifyTrack[] }) => {
                       >
                         {flexRender(
                           cell.column.columnDef.cell,
-                          cell.getContext()
+                          cell.getContext(),
                         )}
                       </td>
                     ))}
@@ -130,7 +180,7 @@ export const DataTable = ({ data }: { data: SpotifyTrack[] }) => {
                 </tr>
               )}
             </tbody>
-          </table>
+          </table> */}
         </div>
         {filteredRowCount > 0 && <PaginationTable table={table} />}
       </div>

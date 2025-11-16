@@ -4,7 +4,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
+} from "@/components/ui/select";
 
 interface SelectOption {
   value: string;
@@ -24,11 +24,11 @@ interface CustomSelectProps {
 export const CustomSelect = ({
   label,
   options,
-  placeholder = 'Select an option',
+  placeholder = "Select an option",
   value,
   onValueChange,
   disabled,
-  className = '',
+  className = "",
 }: CustomSelectProps) => {
   return (
     <div className="w-full text-gray-600">

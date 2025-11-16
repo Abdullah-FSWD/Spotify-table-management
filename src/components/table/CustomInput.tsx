@@ -1,7 +1,7 @@
-import React from 'react';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { nanoid } from 'nanoid';
+import React from "react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { nanoid } from "nanoid";
 
 interface CustomInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -13,7 +13,7 @@ export const CustomInput = ({
   label,
   error,
   helperText,
-  className = '',
+  className = "",
   id,
   ...props
 }: CustomInputProps) => {
@@ -32,10 +32,10 @@ export const CustomInput = ({
       <Input
         id={inputId}
         className={`
-          ${error ? 'border-red-500 focus-visible:ring-red-500' : ''}
+          ${error ? "border-red-500 focus-visible:ring-red-500" : ""}
           ${className}
         `}
-        aria-invalid={error ? 'true' : 'false'}
+        aria-invalid={error ? "true" : "false"}
         aria-describedby={
           error
             ? `${inputId}-error`
