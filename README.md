@@ -1,73 +1,69 @@
-# React + TypeScript + Vite
+# Spotify Tracks Table Manager
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A high-performance React table management application for exploring and analyzing 30,000+ Spotify tracks with advanced filtering, sorting, search capabilities..
 
-Currently, two official plugins are available:
+## Live Demo
+ [View Live Demo](https://spotify-table-management.vercel.app/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Screenshots
 
-## React Compiler
+### Main Table View
+#### Light Mode
+<img width="1920" height="960" alt="image" src="https://github.com/user-attachments/assets/9571d12d-6ff8-4d9b-ae16-fecff2dc85a4" />
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+#### Dark Mode
+<img width="1920" height="960" alt="image" src="https://github.com/user-attachments/assets/66108bb8-364f-4396-beaa-c4a2d6008cb7" />
 
-## Expanding the ESLint configuration
+### Search
+<img width="1920" height="960" alt="image" src="https://github.com/user-attachments/assets/c283cb68-cdd0-4dc2-88e9-feb7f5b405eb" />
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Advanced Filtering
+<img width="1920" height="960" alt="image" src="https://github.com/user-attachments/assets/62e56e7d-df9b-4fcb-b290-ca79913a073a" />
 
-```js
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
+### Pagination
+<img width="1920" height="960" alt="image" src="https://github.com/user-attachments/assets/58c60a3d-806c-4ba2-8a56-39882b5b34a3" />
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Responsive
+#### Tablet
+<img width="1910" height="960" alt="image" src="https://github.com/user-attachments/assets/3c422969-984f-452d-aa13-bfc253830e17" />
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
-```
+#### Mobile
+<img width="1910" height="960" alt="image" src="https://github.com/user-attachments/assets/d24f8edd-3311-4df7-ae16-74dfec7cb481" />
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Features Implemented
 
-```js
-// eslint.config.js
-import reactX from "eslint-plugin-react-x";
-import reactDom from "eslint-plugin-react-dom";
+- Table Rendering - Efficiently displays 30,000+ tracks
+- Sorting - All columns sortable with visual indicators (ascending/descending)
+- Filtering - 5 filterable columns with multiple filter types:
+  - Text filter (Track Name)
+  - Dropdown filter (Genre, Artist)
+  - Range filter (Popularity 0-100)
+  - Number filter (Release Year)
+  - All filters work together with AND logic
+- Global Search - Searches across all columns with 300ms debouncing
+- Pagination - Adjustable page size (25/50/100 rows per page)
+- User Experience
+  - Loading states with animated skeleton
+  - Error handling with retry functionality
+  - Empty states with helpful messages
+  - Responsive design (desktop, tablet, mobile)
+  - Theme - Light & Dark
 
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs["recommended-typescript"],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
-```
+
+## Tech Stack
+
+### Core Technologies
+- React 18+ - UI library with hooks
+- TypeScript 5+ - Type safety and better DX
+- Vite - Fast build tool and dev server
+### Table Management
+- TanStack Table v8 - Headless table library (9KB)
+### Styling & UI
+- Tailwind CSS - Utility-first CSS framework
+- Lucide React - Beautiful icon library
+- Shadcn UI - UI Components
+### Data Processing
+- PapaParse - CSV parsing and handling
+### State Management
+- React hooks (useState, useMemo, useCallback, useEffect)
+- Custom hooks for reusable logic
