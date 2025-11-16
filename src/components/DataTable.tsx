@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from 'react';
 import {
   useReactTable,
   getCoreRowModel,
@@ -6,13 +6,13 @@ import {
   flexRender,
   getSortedRowModel,
   getFilteredRowModel,
-} from "@tanstack/react-table";
-import { createColumns } from "@/constants/columns";
-import type { SpotifyTrack } from "@/types/spotify.types";
-import type { SortingState } from "@tanstack/react-table";
-import { SearchBar } from "./SearchBar";
-import { TableFilters } from "./TableFilters";
-import { PaginationTable } from "./PaginationTable";
+} from '@tanstack/react-table';
+import { createColumns } from '@/constants/columns';
+import type { SpotifyTrack } from '@/types/spotify.types';
+import type { SortingState } from '@tanstack/react-table';
+import { SearchBar } from './SearchBar';
+import { TableFilters } from './TableFilters';
+import { PaginationTable } from './PaginationTable';
 import {
   Table,
   TableBody,
@@ -20,12 +20,12 @@ import {
   TableHeader,
   TableRow,
   TableCell,
-} from "./ui/table";
+} from './ui/table';
 
 export const DataTable = ({ data }: { data: SpotifyTrack[] }) => {
   const columns = useMemo(() => createColumns(), []);
   const [sorting, setSorting] = useState<SortingState>([]);
-  const [globalFilter, setGlobalFilter] = useState("");
+  const [globalFilter, setGlobalFilter] = useState('');
 
   // eslint-disable-next-line
   const table = useReactTable({
@@ -61,10 +61,10 @@ export const DataTable = ({ data }: { data: SpotifyTrack[] }) => {
   }, []);
 
   const filteredRowCount = table.getFilteredRowModel().rows.length;
-  const hasFilters = globalFilter !== "";
+  const hasFilters = globalFilter !== '';
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 m-4">
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div className="flex-1 max-w-md w-full">
           <SearchBar onSearchChange={handleSearchChange} />
@@ -78,7 +78,7 @@ export const DataTable = ({ data }: { data: SpotifyTrack[] }) => {
             </span>
             {hasFilters && filteredRowCount !== data.length && (
               <>
-                Filtered:{" "}
+                Filtered:{' '}
                 <span className="font-semibold text-gray-600">
                   {filteredRowCount.toLocaleString()}
                 </span>
@@ -100,7 +100,7 @@ export const DataTable = ({ data }: { data: SpotifyTrack[] }) => {
                         ? null
                         : flexRender(
                             header.column.columnDef.header,
-                            header.getContext(),
+                            header.getContext()
                           )}
                     </TableHead>
                   ))}
@@ -115,7 +115,7 @@ export const DataTable = ({ data }: { data: SpotifyTrack[] }) => {
                       <TableCell key={cell.id}>
                         {flexRender(
                           cell.column.columnDef.cell,
-                          cell.getContext(),
+                          cell.getContext()
                         )}
                       </TableCell>
                     ))}

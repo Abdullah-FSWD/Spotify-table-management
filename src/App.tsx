@@ -1,10 +1,10 @@
-import "./App.css";
-import { DataTable } from "./components/DataTable";
-import { useSpotifyTracksData } from "./hooks/useSpotifyTracks";
+import './App.css';
+import { DataTable } from './components/DataTable';
+import { useSpotifyTracksData } from './hooks/useSpotifyTracks';
 function App() {
   const { data } = useSpotifyTracksData();
   return (
-    <div className="text-yellow-300 font-bold text-5xl">
+    <div className="font-bold text-5xl">
       <DataTable data={data} />
     </div>
   );

@@ -1,10 +1,10 @@
-import { useState, useMemo } from "react";
-import type { Table } from "@tanstack/react-table";
-import type { SpotifyTrack } from "@/types/spotify.types";
-import { Filter, X } from "lucide-react";
-import { Button } from "./ui/button";
-import { CustomSelect } from "@/components/table/CustomSelect";
-import { CustomInput } from "@/components/table/CustomInput";
+import { useState, useMemo } from 'react';
+import type { Table } from '@tanstack/react-table';
+import type { SpotifyTrack } from '@/types/spotify.types';
+import { Filter, X } from 'lucide-react';
+import { Button } from './ui/button';
+import { CustomSelect } from '@/components/table/CustomSelect';
+import { CustomInput } from '@/components/table/CustomInput';
 
 type TableFiltersProps = {
   table: Table<SpotifyTrack>;
@@ -18,7 +18,7 @@ export const TableFilters = ({ table, data }: TableFiltersProps) => {
 
   const genres = useMemo(() => {
     const uniqueGenres = Array.from(
-      new Set(data.map((track) => track.playlist_genre).filter(Boolean)),
+      new Set(data.map((track) => track.playlist_genre).filter(Boolean))
     ).sort();
     return uniqueGenres;
   }, [data]);
@@ -32,7 +32,7 @@ export const TableFilters = ({ table, data }: TableFiltersProps) => {
         }
         return acc;
       },
-      {} as Record<string, number>,
+      {} as Record<string, number>
     );
 
     return Object.entries(artistCounts)
@@ -43,37 +43,37 @@ export const TableFilters = ({ table, data }: TableFiltersProps) => {
 
   // Get current filter values
   const trackNameFilter =
-    (table.getColumn("track_name")?.getFilterValue() as string) ?? "";
+    (table.getColumn('track_name')?.getFilterValue() as string) ?? '';
   const genreFilter =
-    (table.getColumn("playlist_genre")?.getFilterValue() as string) ?? "";
+    (table.getColumn('playlist_genre')?.getFilterValue() as string) ?? '';
   const artistFilter =
-    (table.getColumn("track_artist")?.getFilterValue() as string) ?? "";
+    (table.getColumn('track_artist')?.getFilterValue() as string) ?? '';
   const popularityMin =
     (
-      table.getColumn("track_popularity")?.getFilterValue() as [number, number]
+      table.getColumn('track_popularity')?.getFilterValue() as [number, number]
     )?.[0] ?? 0;
   const popularityMax =
     (
-      table.getColumn("track_popularity")?.getFilterValue() as [number, number]
+      table.getColumn('track_popularity')?.getFilterValue() as [number, number]
     )?.[1] ?? 100;
   const yearFilter =
-    (table.getColumn("track_album_release_date")?.getFilterValue() as number) ??
-    "";
+    (table.getColumn('track_album_release_date')?.getFilterValue() as string) ??
+    '';
 
   const hasActiveFilters =
-    trackNameFilter !== "" ||
-    genreFilter !== "" ||
-    artistFilter !== "" ||
+    trackNameFilter !== '' ||
+    genreFilter !== '' ||
+    artistFilter !== '' ||
     popularityMin !== 0 ||
     popularityMax !== 100 ||
-    yearFilter !== undefined;
+    yearFilter !== '';
 
   const clearAllFilters = () => {
-    table.getColumn("track_name")?.setFilterValue("");
-    table.getColumn("playlist_genre")?.setFilterValue("");
-    table.getColumn("track_artist")?.setFilterValue("");
-    table.getColumn("track_popularity")?.setFilterValue(undefined);
-    table.getColumn("track_album_release_date")?.setFilterValue("");
+    table.getColumn('track_name')?.setFilterValue('');
+    table.getColumn('playlist_genre')?.setFilterValue('');
+    table.getColumn('track_artist')?.setFilterValue('');
+    table.getColumn('track_popularity')?.setFilterValue(undefined);
+    table.getColumn('track_album_release_date')?.setFilterValue('');
   };
 
   return (
@@ -116,7 +116,7 @@ export const TableFilters = ({ table, data }: TableFiltersProps) => {
                 placeholder="Filter by track name..."
                 value={trackNameFilter}
                 onChange={(e) =>
-                  table.getColumn("track_name")?.setFilterValue(e.target.value)
+                  table.getColumn('track_name')?.setFilterValue(e.target.value)
                 }
               />
             </div>
@@ -127,7 +127,7 @@ export const TableFilters = ({ table, data }: TableFiltersProps) => {
                 placeholder="All genres"
                 value={genreFilter}
                 onValueChange={(value) =>
-                  table.getColumn("playlist_genre")?.setFilterValue(value)
+                  table.getColumn('playlist_genre')?.setFilterValue(value)
                 }
                 options={genres.map((genre) => ({
                   value: genre,
@@ -142,7 +142,7 @@ export const TableFilters = ({ table, data }: TableFiltersProps) => {
                 placeholder="All artists"
                 value={artistFilter}
                 onValueChange={(value) =>
-                  table.getColumn("track_artist")?.setFilterValue(value)
+                  table.getColumn('track_artist')?.setFilterValue(value)
                 }
                 options={artists.map((artist) => ({
                   value: artist,
@@ -164,7 +164,7 @@ export const TableFilters = ({ table, data }: TableFiltersProps) => {
                   onChange={(e) => {
                     const value = Number(e.target.value);
                     table
-                      .getColumn("track_popularity")
+                      .getColumn('track_popularity')
                       ?.setFilterValue([value, popularityMax]);
                   }}
                   className="w-20 px-2 py-1 border border-gray-300 rounded text-sm text-gray-400"
@@ -179,7 +179,7 @@ export const TableFilters = ({ table, data }: TableFiltersProps) => {
                   onChange={(e) => {
                     const value = Number(e.target.value);
                     table
-                      .getColumn("track_popularity")
+                      .getColumn('track_popularity')
                       ?.setFilterValue([popularityMin, value]);
                   }}
                   className="w-20 px-2 py-1 border border-gray-300 rounded text-sm text-gray-400"
@@ -195,9 +195,9 @@ export const TableFilters = ({ table, data }: TableFiltersProps) => {
                 value={yearFilter}
                 onChange={(e) =>
                   table
-                    .getColumn("track_album_release_date")
+                    .getColumn('track_album_release_date')
                     ?.setFilterValue(
-                      e.target.value ? Number(e.target.value) : "",
+                      e.target.value ? Number(e.target.value) : ''
                     )
                 }
               />
@@ -213,7 +213,7 @@ export const TableFilters = ({ table, data }: TableFiltersProps) => {
                     Track: {trackNameFilter}
                     <button
                       onClick={() =>
-                        table.getColumn("track_name")?.setFilterValue("")
+                        table.getColumn('track_name')?.setFilterValue('')
                       }
                       className="hover:text-gray-900"
                     >
@@ -226,7 +226,7 @@ export const TableFilters = ({ table, data }: TableFiltersProps) => {
                     Genre: {genreFilter}
                     <button
                       onClick={() =>
-                        table.getColumn("playlist_genre")?.setFilterValue("")
+                        table.getColumn('playlist_genre')?.setFilterValue('')
                       }
                       className="hover:text-gray-900"
                     >
@@ -239,7 +239,7 @@ export const TableFilters = ({ table, data }: TableFiltersProps) => {
                     Artist: {artistFilter}
                     <button
                       onClick={() =>
-                        table.getColumn("track_artist")?.setFilterValue("")
+                        table.getColumn('track_artist')?.setFilterValue('')
                       }
                       className="hover:text-gray-900"
                     >
@@ -253,7 +253,7 @@ export const TableFilters = ({ table, data }: TableFiltersProps) => {
                     <button
                       onClick={() =>
                         table
-                          .getColumn("track_popularity")
+                          .getColumn('track_popularity')
                           ?.setFilterValue(undefined)
                       }
                       className="hover:text-gray-900"
@@ -268,8 +268,8 @@ export const TableFilters = ({ table, data }: TableFiltersProps) => {
                     <button
                       onClick={() =>
                         table
-                          .getColumn("track_album_release_date")
-                          ?.setFilterValue("")
+                          .getColumn('track_album_release_date')
+                          ?.setFilterValue('')
                       }
                       className="hover:text-gray-900"
                     >
