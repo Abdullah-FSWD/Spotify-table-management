@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from 'react';
 import {
   useReactTable,
   getCoreRowModel,
@@ -6,18 +6,18 @@ import {
   flexRender,
   getSortedRowModel,
   getFilteredRowModel,
-} from "@tanstack/react-table";
-import { createColumns } from "@/constants/columns";
-import type { SpotifyTrack } from "@/types/spotify.types";
-import type { SortingState } from "@tanstack/react-table";
-import { SearchBar } from "./SearchBar";
-import { TableFilters } from "./TableFilters";
-import { PaginationTable } from "./PaginationTable";
+} from '@tanstack/react-table';
+import { createColumns } from '@/constants/columns';
+import type { SpotifyTrack } from '@/types/spotify.types';
+import type { SortingState } from '@tanstack/react-table';
+import { SearchBar } from './SearchBar';
+import { TableFilters } from './TableFilters';
+import { PaginationTable } from './PaginationTable';
 
 export const DataTable = ({ data }: { data: SpotifyTrack[] }) => {
   const columns = useMemo(() => createColumns(), []);
   const [sorting, setSorting] = useState<SortingState>([]);
-  const [globalFilter, setGlobalFilter] = useState("");
+  const [globalFilter, setGlobalFilter] = useState('');
 
   const table = useReactTable({
     data,
@@ -52,7 +52,7 @@ export const DataTable = ({ data }: { data: SpotifyTrack[] }) => {
   }, []);
 
   const filteredRowCount = table.getFilteredRowModel().rows.length;
-  const hasFilters = globalFilter !== "";
+  const hasFilters = globalFilter !== '';
 
   return (
     <div className="space-y-4">
@@ -69,7 +69,7 @@ export const DataTable = ({ data }: { data: SpotifyTrack[] }) => {
             </span>
             {hasFilters && filteredRowCount !== data.length && (
               <>
-                Filtered:{" "}
+                Filtered:{' '}
                 <span className="font-semibold text-gray-600">
                   {filteredRowCount.toLocaleString()}
                 </span>
@@ -94,7 +94,7 @@ export const DataTable = ({ data }: { data: SpotifyTrack[] }) => {
                         ? null
                         : flexRender(
                             header.column.columnDef.header,
-                            header.getContext(),
+                            header.getContext()
                           )}
                     </th>
                   ))}
@@ -115,7 +115,7 @@ export const DataTable = ({ data }: { data: SpotifyTrack[] }) => {
                       >
                         {flexRender(
                           cell.column.columnDef.cell,
-                          cell.getContext(),
+                          cell.getContext()
                         )}
                       </td>
                     ))}
