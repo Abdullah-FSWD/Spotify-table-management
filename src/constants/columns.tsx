@@ -8,7 +8,7 @@ export const createColumns = (): ColumnDef<SpotifyTrack>[] => [
     header: ({ column }) => {
       return (
         <button
-          className="flex items-center gap-2 font-semibold hover:text-primary-600 transition-colors"
+          className="flex items-center gap-2 font-semibold hover:text-gray-900 transition-colors"
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
           Track Name
@@ -38,7 +38,7 @@ export const createColumns = (): ColumnDef<SpotifyTrack>[] => [
     header: ({ column }) => {
       return (
         <button
-          className="flex items-center gap-2 font-semibold hover:text-primary-600 transition-colors"
+          className="flex items-center gap-2 font-semibold hover:text-gray-900 transition-colors"
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
           Artist
@@ -68,7 +68,7 @@ export const createColumns = (): ColumnDef<SpotifyTrack>[] => [
     header: ({ column }) => {
       return (
         <button
-          className="flex items-center gap-2 font-semibold hover:text-primary-600 transition-colors"
+          className="flex items-center gap-2 font-semibold hover:text-gray-900 transition-colors"
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
           Album
@@ -97,7 +97,7 @@ export const createColumns = (): ColumnDef<SpotifyTrack>[] => [
     header: ({ column }) => {
       return (
         <button
-          className="flex items-center gap-2 font-semibold hover:text-primary-600 transition-colors"
+          className="flex items-center gap-2 font-semibold hover:text-gray-900 transition-colors"
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
           Genre
@@ -114,7 +114,7 @@ export const createColumns = (): ColumnDef<SpotifyTrack>[] => [
     cell: (info) => {
       const genre = info.getValue() as string;
       return (
-        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-100 text-primary-800">
+        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-100 text-gray-800">
           {genre}
         </span>
       );
@@ -127,7 +127,7 @@ export const createColumns = (): ColumnDef<SpotifyTrack>[] => [
     header: ({ column }) => {
       return (
         <button
-          className="flex items-center gap-2 font-semibold hover:text-primary-600 transition-colors"
+          className="flex items-center gap-2 font-semibold hover:text-gray-900 transition-colors"
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
           Popularity
@@ -165,7 +165,7 @@ export const createColumns = (): ColumnDef<SpotifyTrack>[] => [
     header: ({ column }) => {
       return (
         <button
-          className="flex items-center gap-2 font-semibold hover:text-primary-600 transition-colors"
+          className="flex items-center gap-2 font-semibold hover:text-gray-900 transition-colors"
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
           Duration
@@ -191,7 +191,7 @@ export const createColumns = (): ColumnDef<SpotifyTrack>[] => [
     header: ({ column }) => {
       return (
         <button
-          className="flex items-center gap-2 font-semibold hover:text-primary-600 transition-colors"
+          className="flex items-center gap-2 font-semibold hover:text-gray-900 transition-colors"
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
           Year
@@ -217,7 +217,7 @@ export const createColumns = (): ColumnDef<SpotifyTrack>[] => [
     header: ({ column }) => {
       return (
         <button
-          className="flex items-center gap-2 font-semibold hover:text-primary-600 transition-colors"
+          className="flex items-center gap-2 font-semibold hover:text-gray-900 transition-colors"
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
           Energy
@@ -242,7 +242,7 @@ export const createColumns = (): ColumnDef<SpotifyTrack>[] => [
     header: ({ column }) => {
       return (
         <button
-          className="flex items-center gap-2 font-semibold hover:text-primary-600 transition-colors"
+          className="flex items-center gap-2 font-semibold hover:text-gray-900 transition-colors"
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
           Danceability

@@ -70,7 +70,7 @@ export const DataTable = ({ data }: { data: SpotifyTrack[] }) => {
             {hasFilters && filteredRowCount !== data.length && (
               <>
                 Filtered:{' '}
-                <span className="font-semibold text-primary-600">
+                <span className="font-semibold text-gray-600">
                   {filteredRowCount.toLocaleString()}
                 </span>
               </>

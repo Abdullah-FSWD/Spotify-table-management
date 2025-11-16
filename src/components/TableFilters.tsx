@@ -90,7 +90,7 @@ export const TableFilters = ({ table, data }: TableFiltersProps) => {
           <Filter className="w-4 h-4" />
           Filters
           {hasActiveFilters && (
-            <span className="ml-1 px-2 py-0.5 text-xs font-medium bg-primary-100 text-primary-800 rounded-full">
+            <span className="ml-1 px-2 py-0.5 text-xs font-medium bg-primary-100 text-gray-800 rounded-full">
               {table.getState().columnFilters.length}
             </span>
           )}
@@ -211,46 +211,46 @@ export const TableFilters = ({ table, data }: TableFiltersProps) => {
               <p className="text-sm text-gray-600 mb-2">Active filters:</p>
               <div className="flex flex-wrap gap-2">
                 {trackNameFilter && (
-                  <span className="inline-flex items-center gap-1 px-2 py-1 bg-primary-100 text-primary-800 rounded text-xs">
+                  <span className="inline-flex items-center gap-1 px-2 py-1 bg-primary-100 text-gray-800 rounded text-xs">
                     Track: {trackNameFilter}
                     <button
                       onClick={() =>
                         table.getColumn('track_name')?.setFilterValue('')
                       }
-                      className="hover:text-primary-900"
+                      className="hover:text-gray-900"
                     >
                       <X className="w-3 h-3" />
                     </button>
                   </span>
                 )}
                 {genreFilter && (
-                  <span className="inline-flex items-center gap-1 px-2 py-1 bg-primary-100 text-primary-800 rounded text-xs">
+                  <span className="inline-flex items-center gap-1 px-2 py-1 bg-primary-100 text-gray-800 rounded text-xs">
                     Genre: {genreFilter}
                     <button
                       onClick={() =>
                         table.getColumn('playlist_genre')?.setFilterValue('')
                       }
-                      className="hover:text-primary-900"
+                      className="hover:text-gray-900"
                     >
                       <X className="w-3 h-3" />
                     </button>
                   </span>
                 )}
                 {artistFilter && (
-                  <span className="inline-flex items-center gap-1 px-2 py-1 bg-primary-100 text-primary-800 rounded text-xs">
+                  <span className="inline-flex items-center gap-1 px-2 py-1 bg-primary-100 text-gray-800 rounded text-xs">
                     Artist: {artistFilter}
                     <button
                       onClick={() =>
                         table.getColumn('track_artist')?.setFilterValue('')
                       }
-                      className="hover:text-primary-900"
+                      className="hover:text-gray-900"
                     >
                       <X className="w-3 h-3" />
                     </button>
                   </span>
                 )}
                 {(popularityMin !== 0 || popularityMax !== 100) && (
-                  <span className="inline-flex items-center gap-1 px-2 py-1 bg-primary-100 text-primary-800 rounded text-xs">
+                  <span className="inline-flex items-center gap-1 px-2 py-1 bg-primary-100 text-gray-800 rounded text-xs">
                     Popularity: {popularityMin}-{popularityMax}
                     <button
                       onClick={() =>
@@ -258,20 +258,20 @@ export const TableFilters = ({ table, data }: TableFiltersProps) => {
                           .getColumn('track_popularity')
                           ?.setFilterValue(undefined)
                       }
-                      className="hover:text-primary-900"
+                      className="hover:text-gray-900"
                     >
                       <X className="w-3 h-3" />
                     </button>
                   </span>
                 )}
                 {yearFilter && (
-                  <span className="inline-flex items-center gap-1 px-2 py-1 bg-primary-100 text-primary-800 rounded text-xs">
+                  <span className="inline-flex items-center gap-1 px-2 py-1 bg-primary-100 text-gray-800 rounded text-xs">
                     Year: {yearFilter}
                     <button
                       onClick={() =>
                         table.getColumn('release_year')?.setFilterValue('')
                       }
-                      className="hover:text-primary-900"
+                      className="hover:text-gray-900"
                     >
                       <X className="w-3 h-3" />
                     </button>
