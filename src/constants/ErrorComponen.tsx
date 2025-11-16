@@ -1,4 +1,4 @@
-import { AlertCircle, Music, RefreshCw } from 'lucide-react';
+import { AlertCircle, Music, RefreshCw } from "lucide-react";
 
 type ErrorComponentProps = {
   error?: Error | string;
@@ -7,9 +7,9 @@ type ErrorComponentProps = {
 
 export const ErrorComponent = ({ error }: ErrorComponentProps) => {
   const errorMessage =
-    typeof error === 'string'
+    typeof error === "string"
       ? error
-      : error?.message || 'Something went wrong';
+      : error?.message || "Something went wrong";
 
   return (
     <div className="space-y-5 p-6 md:p-8">

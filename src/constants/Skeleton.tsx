@@ -1,8 +1,8 @@
-import { Music } from 'lucide-react';
+import { Music } from "lucide-react";
 
 export const TableSkeleton = () => {
-  const skeletonBg = 'bg-gray-200';
-  const accentColor = '#E91E63';
+  const skeletonBg = "bg-gray-200";
+  const accentColor = "#E91E63";
 
   return (
     <div className="space-y-5 p-6 md:p-8">
