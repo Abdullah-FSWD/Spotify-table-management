@@ -1,7 +1,7 @@
-import { useEffect, useState, type ReactNode } from "react";
-import Papa from "papaparse";
-import type { SpotifyTrack } from "../types/spotify.types";
-import { SpotifyContext } from "./SpotifyTracksContext";
+import { useEffect, useState, type ReactNode } from 'react';
+import Papa from 'papaparse';
+import type { SpotifyTrack } from '../types/spotify.types';
+import { SpotifyContext } from './SpotifyTracksContext';
 
 export function SpotifyTracksProvider({ children }: { children: ReactNode }) {
   const [data, setData] = useState<SpotifyTrack[]>([]);
@@ -12,7 +12,7 @@ export function SpotifyTracksProvider({ children }: { children: ReactNode }) {
     const fetchAndParseCSV = async () => {
       try {
         setLoading(true);
-        const response = await fetch("/src/data/spotify_songs.csv");
+        const response = await fetch('/spotify_songs.csv');
         const csvText = await response.text();
 
         Papa.parse(csvText, {
@@ -25,14 +25,14 @@ export function SpotifyTracksProvider({ children }: { children: ReactNode }) {
             setLoading(false);
           },
           error: (err: Error) => {
-            console.log("err", err);
+            console.log('err', err);
             setError(err.message);
             setLoading(false);
           },
         });
       } catch (err: unknown) {
-        console.log("error", err);
-        setError("failed to load CSV file");
+        console.log('error', err);
+        setError('failed to load CSV file');
         setLoading(false);
       }
     };
